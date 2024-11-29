@@ -5,35 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="style.css">
-  
-  <!-- Firebase v9+ with modular SDK -->
 
-    // Import necessary Firebase components
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js';
-    import { getDatabase, ref, set, get, child, update, onValue } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js';
-    import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js';
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAYn8pwQuHUNxmU7RZoeEzWZQikdCuY1uU",
-      authDomain: "tictactoe-ea0af.firebaseapp.com",
-      databaseURL: "https://tictactoe-ea0af-default-rtdb.firebaseio.com",
-      projectId: "tictactoe-ea0af",
-      storageBucket: "tictactoe-ea0af.firebasestorage.app",
-      messagingSenderId: "713750587678",
-      appId: "1:713750587678:web:2cb144a89b1da85532c10f",
-      measurementId: "G-4VT1R6MPCX"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-
-    // Initialize Firebase Realtime Database
-    const db = getDatabase(app);
-    const analytics = getAnalytics(app);
-    
-    // Make db available globally for use in other scripts
-    window.db = db;
-  </script>
 </head>
 <body>
   <div class="menu">
