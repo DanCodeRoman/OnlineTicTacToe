@@ -6,25 +6,31 @@
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="style.css">
   <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js""></script>
-  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
 </head>
 <body>
   <script>
+    // Your Firebase config
     const firebaseConfig = {
-    apiKey: "AIzaSyAYn8pwQuHUNxmU7RZoeEzWZQikdCuY1uU",
-    authDomain: "tictactoe-ea0af.firebaseapp.com",
-    databaseURL: "https://tictactoe-ea0af-default-rtdb.firebaseio.com",
-    projectId: "tictactoe-ea0af",
-    storageBucket: "tictactoe-ea0af.firebasestorage.app",
-    messagingSenderId: "713750587678",
-    appId: "1:713750587678:web:2cb144a89b1da85532c10f",
-    measurementId: "G-4VT1R6MPCX"
-  };
+      apiKey: "AIzaSyAYn8pwQuHUNxmU7RZoeEzWZQikdCuY1uU",
+      authDomain: "tictactoe-ea0af.firebaseapp.com",
+      databaseURL: "https://tictactoe-ea0af-default-rtdb.firebaseio.com",
+      projectId: "tictactoe-ea0af",
+      storageBucket: "tictactoe-ea0af.firebasestorage.app",
+      messagingSenderId: "713750587678",
+      appId: "1:713750587678:web:2cb144a89b1da85532c10f",
+      measurementId: "G-4VT1R6MPCX"
+    };
 
-   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database(app);
+
+    // Initialize other Firebase features as needed, e.g., Analytics
+    const analytics = firebase.analytics(app);
   </script>
+
 
   <div class="menu">
     <h1>Tic Tac Toe</h1>
