@@ -1,0 +1,77 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const menu = document.querySelector('.menu');
+  const lobby = document.querySelector('.lobby');
+  const settings = document.querySelector('.settings');
+  const game = document.querySelector('.game');
+  const board = document.getElementById('board');
+
+  const localBtn = document.getElementById('local-btn');
+  const onlineBtn = document.getElementById('online-btn');
+  const settingsBtn = document.getElementById('settings-btn');
+  const backFromLobbyBtn = document.getElementById('back-from-lobby');
+  const backFromSettingsBtn = document.getElementById('back-from-settings');
+  const backFromGameBtn = document.getElementById('back-from-game');
+  const player1ColorInput = document.getElementById('player1-color');
+  const player2ColorInput = document.getElementById('player2-color');
+
+  let player1Color = player1ColorInput.value;
+  let player2Color = player2ColorInput.value;
+
+  // Switch views
+  function showMenu() {
+    menu.classList.remove('hidden');
+    lobby.classList.add('hidden');
+    settings.classList.add('hidden');
+    game.classList.add('hidden');
+  }
+
+  function showLobby() {
+    menu.classList.add('hidden');
+    lobby.classList.remove('hidden');
+  }
+
+  function showSettings() {
+    menu.classList.add('hidden');
+    settings.classList.remove('hidden');
+  }
+
+  function showGame() {
+    menu.classList.add('hidden');
+    game.classList.remove('hidden');
+    createBoard();
+  }
+
+  // Create the game board
+  function createBoard() {
+    board.innerHTML = '';
+    for (let i = 0; i < 9; i++) {
+      const cell = document.createElement('div');
+      cell.addEventListener('click', () => handleCellClick(cell, i));
+      board.appendChild(cell);
+    }
+  }
+
+  let currentPlayer = 'X';
+
+  function handleCellClick(cell, index) {
+    if (cell.textContent !== '') return;
+
+    cell.textContent = currentPlayer;
+    cell.style.color = currentPlayer === 'X' ? player1Color : player2Color;
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  }
+
+  // Event Listeners
+  localBtn.addEventListener('click', showGame);
+  onlineBtn.addEventListener('click', showLobby);
+  settingsBtn.addEventListener('click', showSettings);
+  backFromLobbyBtn.addEventListener('click', showMenu);
+  backFromSettingsBtn.addEventListener('click', showMenu);
+  backFromGameBtn.addEventListener('click', showMenu);
+
+  player1ColorInput.addEventListener('input', (e) => player1Color = e.target.value);
+  player2ColorInput.addEventListener('input', (e) => player2Color = e.target.value);
+
+  // Initialize the view
+  showMenu();
+});
