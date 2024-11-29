@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let player1Color = player1ColorInput.value;
   let player2Color = player2ColorInput.value;
+  let isGameOver = false;
+
 
   // Switch views
   function showMenu() {
@@ -60,6 +62,74 @@ document.addEventListener('DOMContentLoaded', () => {
     cell.style.color = currentPlayer === 'X' ? player1Color : player2Color;
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
   }
+
+  function checkGameOver() {
+  const winningCombinations = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+    [0, 4, 8], [2, 4, 6]             // Diagonals
+  ];
+
+  const cells = Array.from(board.children);
+  for (let combination of winningCombinations) {
+    const [a, b, c] = combination;
+    if (
+      cells[a].textContent &&
+      cells[a].textContent === cells[b].textContent &&
+      cells[a].textContent === cells[c].textContent
+    ) {
+      showGameOver(`${cells[a].textContent} Wins!`);
+      return true;
+    }
+  }
+
+  // Check for a draw
+  if (cells.every(cell => cell.textContent !== '')) {
+    showGameOver("It's a Draw!");
+    return true;
+  }
+
+  return false;
+}
+
+  function showGameOver(message) {
+  isGameOver = true;
+  const gameOverScreen = document.querySelector('.game-over');
+  const gameOverMessage = document.getElementById('game-over-message');
+  gameOverMessage.textContent = message;
+  gameOverScreen.classList.remove('hidden');
+}
+
+  const gameOverReturnBtn = document.getElementById('game-over-return');
+gameOverReturnBtn.addEventListener('click', () => {
+  isGameOver = false;
+  const gameOverScreen = document.querySelector('.game-over');
+  gameOverScreen.classList.add('hidden');
+  showMenu(); // Return to main menu
+});
+
+  function handleCellClick(cell, index) {
+  if (cell.textContent !== '' || isGameOver || symbol === null) return;
+
+  cell.textContent = symbol;
+  cell.style.color = symbol === 'X' ? player1Color : player2Color;
+
+  socket.emit('makeMove', { room, index, symbol });
+
+  if (checkGameOver()) return; // Stop further moves if game ends
+
+  // Switch to the next player
+  symbol = symbol === 'X' ? 'O' : 'X';
+}
+
+  socket.on('moveMade', ({ index, symbol }) => {
+  const cell = board.children[index];
+  cell.textContent = symbol;
+  cell.style.color = symbol === 'X' ? player1Color : player2Color;
+
+  checkGameOver(); // Check if the opponent’s move ends the game
+});
+
 
   // Event Listeners
   localBtn.addEventListener('click', showGame);
