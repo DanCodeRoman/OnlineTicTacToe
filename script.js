@@ -1,3 +1,27 @@
+// Import necessary Firebase components from Firebase v9+ modular SDK
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js';
+import { getDatabase, ref, set, get, child, onValue, remove, push, update } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js';
+
+// Your Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAYn8pwQuHUNxmU7RZoeEzWZQikdCuY1uU",
+  authDomain: "tictactoe-ea0af.firebaseapp.com",
+  databaseURL: "https://tictactoe-ea0af-default-rtdb.firebaseio.com",
+  projectId: "tictactoe-ea0af",
+  storageBucket: "tictactoe-ea0af.firebasestorage.app",
+  messagingSenderId: "713750587678",
+  appId: "1:713750587678:web:2cb144a89b1da85532c10f",
+  measurementId: "G-4VT1R6MPCX"
+};
+
+// Initialize Firebase app and get a reference to the Realtime Database
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// Firebase reference to the 'games' path in your database
+const gameRef = ref(db, 'games');
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const menu = document.querySelector('.menu');
   const lobby = document.querySelector('.lobby');
