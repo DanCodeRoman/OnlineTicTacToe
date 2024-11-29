@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Firebase (using module type) -->
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js';
-    import { getDatabase, ref, set, get, child, update, remove, onValue } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js';
-    import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js';
-
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
+</head>
+<body>
+  <script>
     // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyAYn8pwQuHUNxmU7RZoeEzWZQikdCuY1uU",
@@ -24,12 +24,15 @@
     };
 
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const analytics = getAnalytics(app);
+    const app = firebase.initializeApp(firebaseConfig);
+
+    // Initialize Firebase Realtime Database
+    const db = firebase.database(app); // This is where db is defined
+
+    // Initialize other Firebase features as needed, e.g., Analytics
+    const analytics = firebase.analytics(app);
   </script>
-</head>
-<body>
+
   <div class="menu">
     <h1>Tic Tac Toe</h1>
     <button id="local-btn">Local Multiplayer</button>
