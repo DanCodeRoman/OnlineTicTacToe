@@ -130,6 +130,33 @@ gameOverReturnBtn.addEventListener('click', () => {
   checkGameOver(); // Check if the opponent’s move ends the game
 });
 
+  let gameKey = null; // Unique game ID
+let playerSymbol = null; // 'X' or 'O'
+
+// Connect to Firebase Realtime Database
+const gameRef = db.ref('games');
+
+// Create or Join Game
+function createGame() {
+  const newGameRef = gameRef.push();
+  newGameRef.set({
+    board: Array(9).fill(''),
+    currentPlayer: 'X',
+    status: 'waiting'
+  });
+  gameKey = newGameRef.key;
+  playerSymbol = 'X';
+  monitorGame();
+}
+
+function joinGame(key) {
+  gameKey = key;
+  playerSymbol = 'O';
+  gameRef.child(gameKey).update({ status: 'playing' });
+  monitorGame();
+}
+
+
 
   // Event Listeners
   localBtn.addEventListener('click', showGame);
