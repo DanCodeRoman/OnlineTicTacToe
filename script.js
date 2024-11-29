@@ -23,7 +23,7 @@ import { getDatabase, ref, set, get, child, onValue, remove, push, update } from
     
     // Make db available globally for use in other scripts
     window.db = db;
-  </script>
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
