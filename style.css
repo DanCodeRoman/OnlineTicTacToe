@@ -1,30 +1,24 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f3f3f3;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-
-.menu, .lobby, .settings, .game {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
 }
 
 .hidden {
   display: none;
 }
 
-h1, h2 {
-  margin: 20px;
+.menu, .lobby, .game, .game-over, .settings {
+  text-align: center;
 }
 
 button {
-  padding: 10px 20px;
   margin: 10px;
+  padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
 }
@@ -32,39 +26,24 @@ button {
 #board {
   display: grid;
   grid-template-columns: repeat(3, 100px);
-  grid-template-rows: repeat(3, 100px);
-  gap: 5px;
-  margin: 20px;
+  grid-gap: 10px;
+  justify-content: center;
+  margin: 20px auto;
 }
 
-#board div {
+.cell {
   width: 100px;
   height: 100px;
-  background-color: white;
-  border: 2px solid black;
+  background-color: #fff;
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 24px;
+  align-items: center;
+  font-size: 36px;
   font-weight: bold;
+  border: 1px solid #ccc;
   cursor: pointer;
 }
 
-.game-over {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.game-over.hidden {
-  display: none;
+.cell:hover {
+  background-color: #f9f9f9;
 }
