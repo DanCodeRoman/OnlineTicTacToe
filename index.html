@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="menu">
+    <h1>Tic Tac Toe</h1>
+    <button id="local-btn">Local Multiplayer</button>
+    <button id="online-btn">Online Multiplayer</button>
+    <button id="settings-btn">Settings</button>
+  </div>
+
+  <div class="lobby hidden">
+    <h2>Online Lobby</h2>
+    <button id="start-online">Start Game</button>
+    <button id="back-from-lobby">Back to Menu</button>
+  </div>
+
+  <div class="settings hidden">
+    <h2>Settings</h2>
+    <label for="player1-color">Player 1 Color:</label>
+    <input type="color" id="player1-color" value="#ff0000">
+    <br>
+    <label for="player2-color">Player 2 Color:</label>
+    <input type="color" id="player2-color" value="#0000ff">
+    <br>
+    <button id="back-from-settings">Back to Menu</button>
+  </div>
+
+  <div class="game hidden">
+    <div id="board"></div>
+    <button id="back-from-game">Back to Menu</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
