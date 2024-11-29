@@ -156,6 +156,42 @@ function joinGame(key) {
   monitorGame();
 }
 
+  function makeMove(index) {
+  gameRef.child(gameKey).once('value').then(snapshot => {
+    const gameData = snapshot.val();
+    if (gameData.board[index] === '' && gameData.currentPlayer === playerSymbol) {
+      gameData.board[index] = playerSymbol;
+      gameData.currentPlayer = playerSymbol === 'X' ? 'O' : 'X';
+      gameRef.child(gameKey).set(gameData);
+    }
+  });
+}
+
+function monitorGame() {
+  gameRef.child(gameKey).on('value', snapshot => {
+    const gameData = snapshot.val();
+    if (!gameData) return;
+
+    updateBoard(gameData.board);
+
+    if (checkWinner(gameData.board)) {
+      alert(`${playerSymbol} Wins!`);
+      gameRef.child(gameKey).off(); // Stop listening
+    } else if (gameData.board.every(cell => cell !== '')) {
+      alert("It's a draw!");
+      gameRef.child(gameKey).off(); // Stop listening
+    }
+  });
+}
+
+function updateBoard(board) {
+  const cells = document.querySelectorAll('.cell');
+  board.forEach((symbol, index) => {
+    cells[index].textContent = symbol;
+  });
+}
+
+
 
 
   // Event Listeners
