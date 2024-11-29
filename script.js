@@ -1,10 +1,6 @@
 // Import necessary Firebase components from Firebase v9+ modular SDK
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js';
 import { getDatabase, ref, set, get, child, onValue, remove, push, update } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js';
-
-    // Import necessary Firebase components
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js';
-    import { getDatabase, ref, set, get, child, update, onValue } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js';
     import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js';
 
     const firebaseConfig = {
