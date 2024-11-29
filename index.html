@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
-</head>
-<body>
-  <script>
-    // Your Firebase config
+  
+  <!-- Firebase v9+ with modular SDK -->
+  <script type="module">
+    // Import necessary Firebase components
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js';
+    import { getDatabase, ref, set, get, child, update, onValue } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js';
+    import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js';
+
     const firebaseConfig = {
       apiKey: "AIzaSyAYn8pwQuHUNxmU7RZoeEzWZQikdCuY1uU",
       authDomain: "tictactoe-ea0af.firebaseapp.com",
@@ -24,15 +25,17 @@
     };
 
     // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
 
     // Initialize Firebase Realtime Database
-    const db = firebase.database(app); // This is where db is defined
-
-    // Initialize other Firebase features as needed, e.g., Analytics
-    const analytics = firebase.analytics(app);
+    const db = getDatabase(app);
+    const analytics = getAnalytics(app);
+    
+    // Make db available globally for use in other scripts
+    window.db = db;
   </script>
-
+</head>
+<body>
   <div class="menu">
     <h1>Tic Tac Toe</h1>
     <button id="local-btn">Local Multiplayer</button>
