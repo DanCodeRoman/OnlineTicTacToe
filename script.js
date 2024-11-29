@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let playerSymbol = null;
   let isGameOver = false;
 
-  const gameRef = db.ref('games');
+  // Firebase database reference
+  const gameRef = ref(db, 'games'); // db is now properly initialized in the HTML script
 
   // UI Control Functions
   function showMenu() {
@@ -69,12 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleMove(index) {
     if (isGameOver || currentPlayer !== playerSymbol) return;
-    gameRef.child(gameKey).once('value').then(snapshot => {
+    get(child(gameRef, gameKey)).then(snapshot => {
       const gameData = snapshot.val();
       if (gameData.board[index] === '') {
         gameData.board[index] = playerSymbol;
         gameData.currentPlayer = playerSymbol === 'X' ? 'O' : 'X';
-        gameRef.child(gameKey).set(gameData);
+        set(ref(gameRef, gameKey), gameData);
       }
     });
   }
@@ -88,16 +89,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function monitorGame() {
-    gameRef.child(gameKey).on('value', snapshot => {
+    onValue(child(gameRef, gameKey), snapshot => {
       const gameData = snapshot.val();
       if (!gameData) return;
       updateBoard(gameData.board);
       if (checkWinner(gameData.board)) {
         showGameOver(`${gameData.currentPlayer === 'X' ? 'O' : 'X'} Wins!`);
-        gameRef.child(gameKey).off();
+        remove(child(gameRef, gameKey)); // End game and remove it from the database
       } else if (gameData.board.every(cell => cell !== '')) {
         showGameOver("It's a Draw!");
-        gameRef.child(gameKey).off();
+        remove(child(gameRef, gameKey));
       }
     });
   }
@@ -130,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const key = prompt('Enter Game Key:');
     gameKey = key;
     playerSymbol = 'O';
-    gameRef.child(gameKey).update({ status: 'playing' });
+    update(child(gameRef, gameKey), { status: 'playing' });
     monitorGame();
   }
 
